@@ -13,7 +13,7 @@ public class ConstantFunction implements MathFunction {
         return constant;
     }
 
-    public double getConstant(){
+    public double getConstant() {
         return constant;
     }
 
