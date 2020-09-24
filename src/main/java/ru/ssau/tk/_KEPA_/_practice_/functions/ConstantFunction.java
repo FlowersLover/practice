@@ -14,7 +14,7 @@ public class ConstantFunction implements MathFunction {
     }
 
     public double getConstant(){
-    return constant;
+        return constant;
     }
 
 }

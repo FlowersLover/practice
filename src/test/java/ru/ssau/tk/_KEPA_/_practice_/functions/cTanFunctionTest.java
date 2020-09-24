@@ -11,7 +11,7 @@ public class cTanFunctionTest {
         MathFunction ctanFunction = new CTanFunction();
         assertEquals(ctanFunction.apply(java.lang.Math.PI/6), java.lang.Math.pow(3, 0.5), DELTA) ;
         assertEquals(ctanFunction.apply(java.lang.Math.PI/4), 1, DELTA) ;
-        assertEquals(ctanFunction.apply(java.lang.Math.PI/3), java.lang.Math.pow(3, 0.5)/3, DELTA) ;
+        assertEquals(ctanFunction.apply(java.lang.Math.PI/3), Math.pow(3, 0.5)/3, DELTA) ;
         assertEquals(ctanFunction.apply(java.lang.Math.PI/2), 0, DELTA) ;
     }
 }
