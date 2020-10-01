@@ -9,7 +9,7 @@ public interface TabulatedFunction extends MathFunction {
 
     void setY(int index, double value);
 
-    int indexOfX(double x);
+    double indexOfX(double x);
 
     int indexOfY(double y);
 
