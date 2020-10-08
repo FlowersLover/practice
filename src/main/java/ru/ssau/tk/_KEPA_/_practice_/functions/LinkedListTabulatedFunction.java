@@ -60,20 +60,17 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         return null;
     }
 
-    public void LinkedListTabulatedFunction(double[] xValues ,double[] yValues){
-        this.count = xValues.length;
-        for (int i = 0; i < count; i++) {
-            addNode(xValues[i], yValues[i]);
+    public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+        for (int i = 0; i < xValues.length; i++) {
+            this.addNode(xValues[i], yValues[i]);
         }
     }
-    public void LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count){
-        this.count = count;
+
+    public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         double step = (xTo - xFrom) / (count - 1);
-        double first = xFrom;
         for (int i = 0; i < count; i++) {
-            double temp = source.apply(first);
-            this.addNode(first, temp);
-            first += step;
+            this.addNode(xFrom, source.apply(xFrom));
+            xFrom += step;
         }
     }
     public double leftBound() {
