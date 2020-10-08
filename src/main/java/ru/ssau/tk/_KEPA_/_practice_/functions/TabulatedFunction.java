@@ -1,6 +1,9 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 
-public interface TabulatedFunction extends MathFunction {
+import java.awt.*;
+
+public interface TabulatedFunction extends MathFunction, Iterable<Point> {
+
     int getCount();
 
     double getX(int index);
@@ -9,7 +12,7 @@ public interface TabulatedFunction extends MathFunction {
 
     void setY(int index, double value);
 
-    double indexOfX(double x);
+    int indexOfX(double x);
 
     int indexOfY(double y);
 

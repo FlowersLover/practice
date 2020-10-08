@@ -1,12 +1,9 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
-    private int count;
+    protected int count;
 
-    @Override
-    public int getCount() {
-        return count;
-    }
+    public abstract int getCount();
 
     protected abstract int floorIndexOfX(double x);
 
