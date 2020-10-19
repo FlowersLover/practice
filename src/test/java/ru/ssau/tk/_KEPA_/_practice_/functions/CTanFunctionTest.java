@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-public class cTanFunctionTest {
+public class CTanFunctionTest {
     private final static double DELTA=0.00001;
     @Test
     public void testApply() {

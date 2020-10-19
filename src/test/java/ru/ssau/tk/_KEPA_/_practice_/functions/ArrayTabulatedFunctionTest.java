@@ -7,7 +7,7 @@ import static org.testng.Assert.*;
 public class ArrayTabulatedFunctionTest {
     private final double[] valuesX = new double[]{1.,2.,3., 4.,5.,6.};
     private final double[] valuesY = new double[]{1.,4.,9.,16.,25.,36.};
-    private MathFunction sqrFunction = new SqrFunction();
+    private final MathFunction sqrFunction = new SqrFunction();
     private final double DELTA = 0.00001;
 
 
@@ -18,7 +18,17 @@ public class ArrayTabulatedFunctionTest {
     private ArrayTabulatedFunction getDefinedThroughMathFunction() {
         return new ArrayTabulatedFunction(sqrFunction , 0, 10, 101);
     }
+    @Test
+    public void testApply() {
+        assertEquals(getDefinedThroughArrays().apply(-1), -5, DELTA);
+        assertEquals(getDefinedThroughMathFunction().apply(-1), -0.1, DELTA);
+        assertEquals(getDefinedThroughArrays().apply(40), 410, DELTA);
+        assertEquals(getDefinedThroughMathFunction().apply(30), 498, DELTA);
+        assertEquals(getDefinedThroughArrays().apply(1.5), 2.5, DELTA);
+        assertEquals(getDefinedThroughMathFunction().apply(1.5), 2.25, DELTA);
 
+
+    }
     @Test
     public void testGetCount() {
 

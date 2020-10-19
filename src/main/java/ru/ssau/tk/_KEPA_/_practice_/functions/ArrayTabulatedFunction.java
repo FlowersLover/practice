@@ -1,14 +1,13 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 
-
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction  {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
-    private double[] xValues;
-    private double[] yValues;
+    private final double[] xValues;
+    private final double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         count = xValues.length;
@@ -16,11 +15,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction  {
         this.yValues = Arrays.copyOf(yValues, count);
     }
 
-    ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         this.count = count;
         xValues = new double[count];
         yValues = new double[count];
-        for (int i =0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             xValues[i] = xFrom + i * (xTo - xFrom) / (count - 1);
             yValues[i] = source.apply(xValues[i]);
         }
@@ -76,6 +75,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction  {
     public double rightBound() {
         return xValues[count - 1];
     }
+
     @Override
     protected int floorIndexOfX(double x) {
         if (x < xValues[0]) {
@@ -83,7 +83,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction  {
         }
         for (int i = 0; i + 1 < count; i++) {
             if (xValues[i] > x) {
-                return i-1;
+                return i - 1;
             }
         }
         return count;
@@ -96,6 +96,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction  {
         }
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
+
     @Override
     protected double extrapolateLeft(double x) {
         if (count == 1) {
@@ -112,9 +113,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction  {
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
 
-
-    @Override
     public Iterator<Point> iterator() {
         throw new UnsupportedOperationException();
     }
+
 }

@@ -4,61 +4,7 @@ import java.awt.*;
 import java.util.Iterator;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
-    @Override
-    public Iterator<Point> iterator() {
-        return null;
-    }
-
-    protected class Node {
-        double x;
-        double y;
-        Node next;
-        Node prev;
-    }
     private Node head;
-    private Node last;
-    private void addNode(double x, double y){
-        Node newNode = new Node();
-        newNode.x = x;
-        newNode.y = y;
-        if (head == null) {
-            head = newNode;
-            newNode.prev =newNode;
-            newNode.next = newNode;
-        } else {
-            last=head.prev;
-            newNode.prev =last;
-            newNode.next = head;
-            head.prev = newNode;
-            last.next = newNode;
-        }
-        last = newNode;
-        count++;
-    }
-    private Node getNode(int index) {
-        Node indexNode;
-        if (index > (count / 2)) {
-            indexNode = head.prev;
-            for (int i = count - 1; i > 0; i--) {
-                if (i == index) {
-                    return indexNode;
-                } else {
-                    indexNode = indexNode.prev;
-                }
-            }
-        }
-        else {
-            indexNode = head;
-            for (int i = 0; i < count; i++) {
-                if (index == i) {
-                    return indexNode;
-                } else {
-                    indexNode = indexNode.next;
-                }
-            }
-        }
-        return null;
-    }
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         for (int i = 0; i < xValues.length; i++) {
@@ -73,13 +19,58 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
             xFrom += step;
         }
     }
+
+    private void addNode(double x, double y) {
+        Node newNode = new Node();
+        newNode.x = x;
+        newNode.y = y;
+        if (head == null) {
+            head = newNode;
+            newNode.prev = newNode;
+            newNode.next = newNode;
+        } else {
+            newNode.prev = head.prev;
+            newNode.next = head;
+            head.prev = newNode;
+            head.prev.next = newNode;
+        }
+        head.prev = newNode;
+        count++;
+    }
+
+    private Node getNode(int index) {
+        Node indexNode;
+        if (index > (count / 2)) {
+            indexNode = head.prev;
+            for (int i = count - 1; i > 0; i--) {
+                if (i == index) {
+                    return indexNode;
+                } else {
+                    indexNode = indexNode.prev;
+                }
+            }
+        } else {
+            indexNode = head;
+            for (int i = 0; i < count; i++) {
+                if (index == i) {
+                    return indexNode;
+                } else {
+                    indexNode = indexNode.next;
+                }
+            }
+        }
+        return null;
+    }
+
+
     public double leftBound() {
         return head.x;
     }
 
     public double rightBound() {
-        return last.x;
+        return head.prev.x;
     }
+
     @Override
     public int getCount() {
         return count;
@@ -166,5 +157,15 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         Node rightNode = leftNode.next;
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
     }
-}
 
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
+    }
+
+    protected class Node {
+        public double x;
+        public double y;
+        public Node next;
+        public Node prev;
+    }
+}
