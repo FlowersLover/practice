@@ -1,7 +1,5 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 
-import java.awt.*;
-import java.util.Iterator;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
@@ -31,7 +29,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         } else {
             newNode.prev = head.prev;
             newNode.next = head;
-            head.prev = newNode;
             head.prev.next = newNode;
         }
         head.prev = newNode;
@@ -40,28 +37,25 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     private Node getNode(int index) {
         Node indexNode;
-        if (index > (count / 2)) {
+        if (index <= (count / 2)) {
+            indexNode = head;
+            for (int i = 0; i < count; i++) {
+                if (i == index) {
+                    return indexNode;
+                }
+                indexNode = indexNode.next;
+            }
+        } else {
             indexNode = head.prev;
             for (int i = count - 1; i > 0; i--) {
                 if (i == index) {
                     return indexNode;
-                } else {
-                    indexNode = indexNode.prev;
                 }
-            }
-        } else {
-            indexNode = head;
-            for (int i = 0; i < count; i++) {
-                if (index == i) {
-                    return indexNode;
-                } else {
-                    indexNode = indexNode.next;
-                }
+                indexNode = indexNode.prev;
             }
         }
-        return null;
+        return indexNode;
     }
-
 
     public double leftBound() {
         return head.x;
@@ -142,7 +136,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     protected double extrapolateRight(double x) {
         if (head.x == head.prev.x) {
-            //noinspection SuspiciousNameCombination
             return head.y;
         }
         return interpolate(x, head.prev.prev.x, head.prev.x, head.prev.prev.y, head.prev.y);
@@ -156,10 +149,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         Node leftNode = getNode(floorIndex);
         Node rightNode = leftNode.next;
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
-    }
-
-    public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
     }
 
     protected class Node {

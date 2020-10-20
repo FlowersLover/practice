@@ -1,8 +1,6 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 
-import java.awt.*;
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
@@ -112,9 +110,5 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         }
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
-
-    public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
-    }
-
 }
+
