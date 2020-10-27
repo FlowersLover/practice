@@ -9,11 +9,20 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         count = xValues.length;
+        if (xValues.length < 2) {
+            throw new IllegalArgumentException("Array less than minimum length");
+        }
         this.xValues = Arrays.copyOf(xValues, count);
         this.yValues = Arrays.copyOf(yValues, count);
     }
 
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        if (count < 2) {
+            throw new IllegalArgumentException("Count less than minimum length");
+        }
+        if (xFrom >= xTo) {
+            throw new IllegalArgumentException("Incorrect parameter values");
+        }
         this.count = count;
         xValues = new double[count];
         yValues = new double[count];
@@ -30,17 +39,26 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    public double getX(int index) {
+    public double getX(int index)throws ArrayIndexOutOfBoundsException {
+        if (index < 0 || index >= count) {
+            throw new ArrayIndexOutOfBoundsException("Index is out of bounds");
+        }
         return xValues[index];
     }
 
     @Override
-    public double getY(int index) {
+    public double getY(int index) throws ArrayIndexOutOfBoundsException  {
+        if (index < 0 || index >= count) {
+            throw new ArrayIndexOutOfBoundsException("Index is out of bounds");
+        }
         return yValues[index];
     }
 
     @Override
-    public void setY(int index, double value) {
+    public void setY(int index, double value) throws ArrayIndexOutOfBoundsException {
+        if (index < 0 || index >= count) {
+            throw new ArrayIndexOutOfBoundsException("Index is out of bounds");
+        }
         yValues[index] = value;
     }
 
@@ -75,9 +93,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    protected int floorIndexOfX(double x) {
+    protected int floorIndexOfX(double x) throws ArrayIndexOutOfBoundsException {
         if (x < xValues[0]) {
-            return 0;
+            throw new ArrayIndexOutOfBoundsException("Argument x less than minimal x in tabulated function");
         }
         for (int i = 0; i + 1 < count; i++) {
             if (xValues[i] > x) {
@@ -89,25 +107,16 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     protected double interpolate(double x, int floorIndex) {
-        if (count == 1) {
-            return x;
-        }
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
 
     @Override
     protected double extrapolateLeft(double x) {
-        if (count == 1) {
-            return x;
-        }
         return interpolate(x, xValues[0], xValues[1], yValues[0], yValues[1]);
     }
 
     @Override
     protected double extrapolateRight(double x) {
-        if (count == 1) {
-            return x;
-        }
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
 }
