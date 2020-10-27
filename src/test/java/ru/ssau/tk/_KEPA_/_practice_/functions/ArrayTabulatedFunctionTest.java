@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ArrayTabulatedFunctionTest {
-    private final double[] valuesX = new double[]{1.,2.,3., 4.,5.,6.};
-    private final double[] valuesY = new double[]{1.,4.,9.,16.,25.,36.};
+    private final double[] valuesX = new double[]{1., 2., 3., 4., 5., 6.};
+    private final double[] valuesY = new double[]{1., 4., 9., 16., 25., 36.};
     private final MathFunction sqrFunction = new SqrFunction();
     private final double DELTA = 0.00001;
 
@@ -16,8 +16,9 @@ public class ArrayTabulatedFunctionTest {
     }
 
     private ArrayTabulatedFunction getDefinedThroughMathFunction() {
-        return new ArrayTabulatedFunction(sqrFunction , 0, 10, 101);
+        return new ArrayTabulatedFunction(sqrFunction, 0, 10, 101);
     }
+
     @Test
     public void testApply() {
         assertEquals(getDefinedThroughArrays().apply(-1), -5, DELTA);
@@ -29,13 +30,14 @@ public class ArrayTabulatedFunctionTest {
 
 
     }
+
     @Test
     public void testGetCount() {
 
-        assertEquals(getDefinedThroughArrays().getCount(), 6,DELTA);
-        assertEquals(getDefinedThroughMathFunction().getCount(), 101,DELTA);
-        assertNotEquals(getDefinedThroughArrays().getCount(), 3,DELTA);
-        assertNotEquals(getDefinedThroughMathFunction().getCount(), 10,DELTA);
+        assertEquals(getDefinedThroughArrays().getCount(), 6, DELTA);
+        assertEquals(getDefinedThroughMathFunction().getCount(), 101, DELTA);
+        assertNotEquals(getDefinedThroughArrays().getCount(), 3, DELTA);
+        assertNotEquals(getDefinedThroughMathFunction().getCount(), 10, DELTA);
 
     }
 
@@ -57,9 +59,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughArrays().getY(0), 1, DELTA);
         assertEquals(getDefinedThroughArrays().getY(4), 25, DELTA);
         assertNotEquals(getDefinedThroughArrays().getY(2), 1, DELTA);
-        assertEquals(getDefinedThroughMathFunction().getY(1),0.01, DELTA);
+        assertEquals(getDefinedThroughMathFunction().getY(1), 0.01, DELTA);
         assertEquals(getDefinedThroughMathFunction().getY(20), 4, DELTA);
-        assertNotEquals(getDefinedThroughMathFunction().getY(30),0, DELTA);
+        assertNotEquals(getDefinedThroughMathFunction().getY(30), 0, DELTA);
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().getY(-1));
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughMathFunction().getY(-1));
     }
@@ -86,8 +88,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(testDefinedThroughMathFunction.getY(30), 1002., DELTA);
         assertEquals(testDefinedThroughMathFunction.getY(50), 1003., DELTA);
 
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().setY(-1,0));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughMathFunction().setY(-1,0));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().setY(-1, 0));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughMathFunction().setY(-1, 0));
 
     }
 
@@ -154,7 +156,7 @@ public class ArrayTabulatedFunctionTest {
     public void testExtrapolateLeft() {
         assertEquals(getDefinedThroughArrays().extrapolateLeft(1.4), 2.2, DELTA);
         assertEquals(getDefinedThroughArrays().extrapolateLeft(1.11), 1.33, DELTA);
-        assertNotEquals(getDefinedThroughArrays().extrapolateLeft(1.11), 0 , DELTA);
+        assertNotEquals(getDefinedThroughArrays().extrapolateLeft(1.11), 0, DELTA);
         assertEquals(getDefinedThroughMathFunction().extrapolateLeft(0.03), 0.003, DELTA);
         assertEquals(getDefinedThroughMathFunction().extrapolateLeft(0.07), 0.007, DELTA);
         assertNotEquals(getDefinedThroughMathFunction().extrapolateLeft(0.07), 0.7, DELTA);
