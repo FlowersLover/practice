@@ -47,6 +47,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().getX(100), 10, DELTA);
         assertEquals(getDefinedThroughMathFunction().getX(0), 0, DELTA);
         assertNotEquals(getDefinedThroughMathFunction().getX(5), 0, DELTA);
+
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().getX(-1));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughMathFunction().getX(-1));
     }
 
     @Test
@@ -57,6 +60,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().getY(1),0.01, DELTA);
         assertEquals(getDefinedThroughMathFunction().getY(20), 4, DELTA);
         assertNotEquals(getDefinedThroughMathFunction().getY(30),0, DELTA);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().getY(-1));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughMathFunction().getY(-1));
     }
 
     @Test
@@ -80,6 +85,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(testDefinedThroughMathFunction.getY(2), 1001., DELTA);
         assertEquals(testDefinedThroughMathFunction.getY(30), 1002., DELTA);
         assertEquals(testDefinedThroughMathFunction.getY(50), 1003., DELTA);
+
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().setY(-1,0));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughMathFunction().setY(-1,0));
 
     }
 
@@ -133,11 +141,12 @@ public class ArrayTabulatedFunctionTest {
     @Test
     public void testFloorIndexOfX() {
         assertEquals(getDefinedThroughArrays().floorIndexOfX(3.6), 2, DELTA);
-        assertEquals(getDefinedThroughArrays().floorIndexOfX(-4), 0, DELTA);
         assertNotEquals(getDefinedThroughArrays().floorIndexOfX(4.5), 0, DELTA);
-        assertEquals(getDefinedThroughMathFunction().floorIndexOfX(-1), 0, DELTA);
         assertEquals(getDefinedThroughMathFunction().floorIndexOfX(3.122), 31, DELTA);
         assertNotEquals(getDefinedThroughMathFunction().floorIndexOfX(3), 31, DELTA);
+
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().floorIndexOfX(-1));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughMathFunction().floorIndexOfX(-1));
 
     }
 

@@ -17,7 +17,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         if (count < 2) {
             throw new IllegalArgumentException("The count of points is less than the minimum count (2)");
         }
-        this.count = count;
         if (xFrom >= xTo) {
             throw new IllegalArgumentException("Incorrect parameter values");
         }
@@ -45,7 +44,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         count++;
     }
 
-    private Node getNode(int index) {
+    private Node getNode(int index) throws IllegalArgumentException {
         Node indexNode;
         if (index <= (count / 2)) {
             indexNode = head;
@@ -129,7 +128,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    protected int floorIndexOfX(double x) {
+    protected int floorIndexOfX(double x) throws IllegalArgumentException {
         Node indexNode = head;
         if (x < head.x) {
             throw new IllegalArgumentException("Argument x less than minimal x in tabulated function");

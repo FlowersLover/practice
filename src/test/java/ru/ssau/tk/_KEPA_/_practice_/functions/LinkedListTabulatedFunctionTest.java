@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
+
 public class LinkedListTabulatedFunctionTest {
     private final double[] valuesX = new double[]{1, 2, 3, 4, 5, 6};
     private final double[] valuesY = new double[]{1, 4, 9, 16, 25, 36};
@@ -49,6 +50,10 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(getThroughMathFunction().getX(100), 10, DELTA);
         assertEquals(getThroughMathFunction().getX(0), 0, DELTA);
         assertNotEquals(getThroughMathFunction().getX(5), 1, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getThroughArrays().getX(-1));
+        assertThrows(IllegalArgumentException.class, () -> getThroughMathFunction().getX(-1));
+
+
     }
 
     @Test
@@ -59,6 +64,8 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(getThroughMathFunction().getY(1), 0.01, DELTA);
         assertEquals(getThroughMathFunction().getY(20), 4, DELTA);
         assertNotEquals(getThroughMathFunction().getY(30), 0, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getThroughMathFunction().getY(-1));
+        assertThrows(IllegalArgumentException.class, () -> getThroughArrays().getY(-1));
     }
 
     @Test
@@ -82,6 +89,9 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(testDefinedThroughMathFunction.getY(2), 1001., DELTA);
         assertEquals(testDefinedThroughMathFunction.getY(30), 1002., DELTA);
         assertEquals(testDefinedThroughMathFunction.getY(50), 1003., DELTA);
+
+        assertThrows(IllegalArgumentException.class, () -> getThroughMathFunction().setY(-1, 0));
+        assertThrows(IllegalArgumentException.class, () -> getThroughArrays().setY(-1, 0));
 
     }
 
@@ -135,11 +145,12 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testFloorIndexOfX() {
         assertEquals(getThroughArrays().floorIndexOfX(3.6), 2, DELTA);
-        assertEquals(getThroughArrays().floorIndexOfX(-4), 0, DELTA);
         assertNotEquals(getThroughArrays().floorIndexOfX(4.5), 0, DELTA);
-        assertEquals(getThroughMathFunction().floorIndexOfX(-1), 0, DELTA);
         assertEquals(getThroughMathFunction().floorIndexOfX(3.122), 31, DELTA);
         assertNotEquals(getThroughMathFunction().floorIndexOfX(3), 31, DELTA);
+
+        assertThrows(IllegalArgumentException.class, () -> getThroughArrays().floorIndexOfX(-1));
+        assertThrows(IllegalArgumentException.class, () -> getThroughMathFunction().floorIndexOfX(-1));
 
     }
 
