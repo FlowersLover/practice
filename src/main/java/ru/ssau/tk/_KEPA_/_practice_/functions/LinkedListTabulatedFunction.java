@@ -1,6 +1,7 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
+import java.util.Iterator;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
@@ -167,6 +168,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
             throw new InterpolationException();
         }
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
+    }
+    @Override
+    public Iterator<Point> iterator() {
+        throw new  UnsupportedOperationException();
     }
 
     protected class Node {

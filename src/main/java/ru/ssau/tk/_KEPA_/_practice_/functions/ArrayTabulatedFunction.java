@@ -1,7 +1,9 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
+
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
@@ -124,6 +126,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     protected double extrapolateRight(double x) {
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
+    }
+    @Override
+    public Iterator<Point> iterator() {
+        throw new  UnsupportedOperationException();
     }
 }
 
