@@ -2,6 +2,7 @@ package ru.ssau.tk._KEPA_._practice_.functions;
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
@@ -171,7 +172,30 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
     @Override
     public Iterator<Point> iterator() {
-        throw new  UnsupportedOperationException();
+        return new Iterator<>() {
+            Node node = head;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public Point next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                else {
+                    Point point = new Point(node.x, node.y);
+                    if (node == head.prev) {
+                        node = null;
+                    } else {
+                        node = node.next;
+                    }
+                    return point;
+                }
+            }
+        };
     }
 
     protected class Node {

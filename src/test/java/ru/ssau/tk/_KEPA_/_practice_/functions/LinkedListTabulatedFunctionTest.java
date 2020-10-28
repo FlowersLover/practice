@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 import ru.ssau.tk._KEPA_._practice_.exceptions.InterpolationException;
 
 import static org.testng.Assert.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 public class LinkedListTabulatedFunctionTest {
@@ -20,8 +22,23 @@ public class LinkedListTabulatedFunctionTest {
     private LinkedListTabulatedFunction getThroughMathFunction() {
         return new LinkedListTabulatedFunction(sqrFunction, 0, 10, 101);
     }
-
     @Test
+    public void testIterator() {
+        Iterator<Point> iterator = getThroughArrays().iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            Point point = iterator.next();
+            assertEquals(point.x, getThroughArrays().getX(i), 0.0001);
+            assertEquals(point.y, getThroughArrays().getY(i++), 0.0001);
+        }
+        i = 0;
+        for (Point point : getThroughArrays()) {
+            assertEquals(point.x, getThroughArrays().getX(i), 0.0001);
+            assertEquals(point.y, getThroughArrays().getY(i++), 0.0001);
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
+    }
+
     public void testApply() {
         assertEquals(getThroughArrays().apply(3), 9, DELTA);
         assertEquals(getThroughMathFunction().apply(5), 25, DELTA);

@@ -4,6 +4,9 @@ import org.testng.annotations.Test;
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 import static org.testng.Assert.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 
 public class ArrayTabulatedFunctionTest {
     private final double[] valuesX = new double[]{1., 2., 3., 4., 5., 6.};
@@ -19,7 +22,22 @@ public class ArrayTabulatedFunctionTest {
     private ArrayTabulatedFunction getDefinedThroughMathFunction() {
         return new ArrayTabulatedFunction(sqrFunction, 0, 10, 101);
     }
-
+    public void testIterator() {
+       
+        Iterator<Point> iterator = getDefinedThroughArrays().iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            Point point = iterator.next();
+            assertEquals(point.x, getDefinedThroughArrays().getX(i), 0.0001);
+            assertEquals(point.y, getDefinedThroughArrays().getY(i++), 0.0001);
+        }
+        i = 0;
+        for (Point point : getDefinedThroughArrays()) {
+            assertEquals(point.x, getDefinedThroughArrays().getX(i), 0.0001);
+            assertEquals(point.y, getDefinedThroughArrays().getY(i++), 0.0001);
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
+    }
     @Test
     public void testApply() {
         assertEquals(getDefinedThroughArrays().apply(-1), -5, DELTA);
