@@ -1,6 +1,7 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk._KEPA_._practice_.exceptions.InterpolationException;
 
 import static org.testng.Assert.*;
 
@@ -119,6 +120,8 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(getThroughMathFunction().interpolate(2.125, getThroughMathFunction().floorIndexOfX(2.125)), 4.5175, DELTA);
         assertEquals(getThroughMathFunction().interpolate(5.252, getThroughMathFunction().floorIndexOfX(5.252)), 27.586, DELTA);
         assertNotEquals(getThroughMathFunction().interpolate(0.125, getThroughMathFunction().floorIndexOfX(0.125)), 0, DELTA);
+        assertThrows(InterpolationException.class, () -> getThroughMathFunction().interpolate(1, 2));
+        assertThrows(InterpolationException.class, () -> getThroughArrays().interpolate(11, 2));
 
     }
 

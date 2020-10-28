@@ -1,4 +1,5 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
+import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 import java.util.Arrays;
 
@@ -8,6 +9,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         count = xValues.length;
         if (xValues.length < 2) {
             throw new IllegalArgumentException("Array less than minimum length");
@@ -107,6 +110,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     protected double interpolate(double x, int floorIndex) {
+        if (x < xValues[floorIndex] || xValues[floorIndex + 1] < x) {
+            throw new InterpolationException();
+        }
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
 

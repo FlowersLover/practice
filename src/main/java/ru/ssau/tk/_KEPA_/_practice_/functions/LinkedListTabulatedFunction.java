@@ -1,10 +1,13 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
+import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         if (xValues.length < 2) {
             throw new IllegalArgumentException("Length of array less than minimum length");
         }
@@ -148,27 +151,21 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     protected double extrapolateLeft(double x) {
-        if (head.x == head.prev.x) {
-            return head.y;
-        }
         return interpolate(x, head.x, head.next.x, head.y, head.next.y);
     }
 
     @Override
     protected double extrapolateRight(double x) {
-        if (head.x == head.prev.x) {
-            return head.y;
-        }
         return interpolate(x, head.prev.prev.x, head.prev.x, head.prev.prev.y, head.prev.y);
     }
 
     @Override
     protected double interpolate(double x, int floorIndex) {
-        if (head.x == head.prev.x) {
-            return head.y;
-        }
         Node leftNode = getNode(floorIndex);
         Node rightNode = leftNode.next;
+        if (x < leftNode.x || rightNode.x < x) {
+            throw new InterpolationException();
+        }
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
     }
 

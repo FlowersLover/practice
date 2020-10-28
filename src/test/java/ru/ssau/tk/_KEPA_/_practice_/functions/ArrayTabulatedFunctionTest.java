@@ -1,6 +1,7 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 import static org.testng.Assert.*;
 
@@ -117,6 +118,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().interpolate(2.125, getDefinedThroughMathFunction().floorIndexOfX(2.125)), 4.5175, DELTA);
         assertEquals(getDefinedThroughMathFunction().interpolate(5.252, getDefinedThroughMathFunction().floorIndexOfX(5.252)), 27.586, DELTA);
         assertNotEquals(getDefinedThroughMathFunction().interpolate(0.125, getDefinedThroughMathFunction().floorIndexOfX(0.125)), 0, DELTA);
+        assertThrows(InterpolationException.class, () -> getDefinedThroughMathFunction().interpolate(1, 2));
+        assertThrows(InterpolationException.class, () -> getDefinedThroughArrays().interpolate(1, 2));
 
     }
 
