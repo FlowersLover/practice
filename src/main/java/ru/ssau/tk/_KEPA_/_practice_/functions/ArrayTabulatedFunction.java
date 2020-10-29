@@ -1,4 +1,5 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
+
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 
@@ -45,26 +46,17 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    public double getX(int index)throws ArrayIndexOutOfBoundsException {
-        if (index < 0 || index >= count) {
-            throw new ArrayIndexOutOfBoundsException("Index is out of bounds");
-        }
+    public double getX(int index) {
         return xValues[index];
     }
 
     @Override
-    public double getY(int index) throws ArrayIndexOutOfBoundsException  {
-        if (index < 0 || index >= count) {
-            throw new ArrayIndexOutOfBoundsException("Index is out of bounds");
-        }
+    public double getY(int index) {
         return yValues[index];
     }
 
     @Override
-    public void setY(int index, double value) throws ArrayIndexOutOfBoundsException {
-        if (index < 0 || index >= count) {
-            throw new ArrayIndexOutOfBoundsException("Index is out of bounds");
-        }
+    public void setY(int index, double value) {
         yValues[index] = value;
     }
 
@@ -99,9 +91,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    protected int floorIndexOfX(double x) throws ArrayIndexOutOfBoundsException {
+    protected int floorIndexOfX(double x) throws IllegalArgumentException {
         if (x < xValues[0]) {
-            throw new ArrayIndexOutOfBoundsException("Argument x less than minimal x in tabulated function");
+            throw new IllegalArgumentException("Argument x less than minimal x in tabulated function");
         }
         for (int i = 0; i + 1 < count; i++) {
             if (xValues[i] > x) {
@@ -128,6 +120,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     protected double extrapolateRight(double x) {
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
+
     @Override
     public Iterator<Point> iterator() {
         return new Iterator<>() {

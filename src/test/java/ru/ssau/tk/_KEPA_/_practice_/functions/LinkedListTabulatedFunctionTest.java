@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import ru.ssau.tk._KEPA_._practice_.exceptions.InterpolationException;
 
 import static org.testng.Assert.*;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -22,6 +23,21 @@ public class LinkedListTabulatedFunctionTest {
     private LinkedListTabulatedFunction getThroughMathFunction() {
         return new LinkedListTabulatedFunction(sqrFunction, 0, 10, 101);
     }
+
+    @Test
+    public void testLinkedListTabulatedFunction() {
+        double[] xValues = {5.8};
+        double[] yValues = {0.2};
+        double[] xValues1 = new double[]{};
+        double[] yValues1 = new double[]{};
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(xValues, yValues));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(xValues1, yValues1));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrFunction, 55, 15, 25));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrFunction, -5, 5, 1));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrFunction, 4, 80, -99));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrFunction, 999, 9, 999));
+    }
+
     @Test
     public void testIterator() {
         Iterator<Point> iterator = getThroughArrays().iterator();
@@ -31,14 +47,17 @@ public class LinkedListTabulatedFunctionTest {
             assertEquals(point.x, getThroughArrays().getX(i), 0.0001);
             assertEquals(point.y, getThroughArrays().getY(i++), 0.0001);
         }
+        System.out.println(i);
         i = 0;
         for (Point point : getThroughArrays()) {
             assertEquals(point.x, getThroughArrays().getX(i), 0.0001);
             assertEquals(point.y, getThroughArrays().getY(i++), 0.0001);
         }
+        System.out.println(i);
         assertThrows(NoSuchElementException.class, iterator::next);
     }
 
+    @Test
     public void testApply() {
         assertEquals(getThroughArrays().apply(3), 9, DELTA);
         assertEquals(getThroughMathFunction().apply(5), 25, DELTA);

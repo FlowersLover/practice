@@ -1,4 +1,5 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
+
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 import java.util.Iterator;
@@ -170,6 +171,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         }
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
     }
+
     @Override
     public Iterator<Point> iterator() {
         return new Iterator<>() {
@@ -184,8 +186,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
             public Point next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                }
-                else {
+                } else {
                     Point point = new Point(node.x, node.y);
                     if (node == head.prev) {
                         node = null;
@@ -198,7 +199,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         };
     }
 
-    protected class Node {
+    protected static class Node {
         public double x;
         public double y;
         public Node next;

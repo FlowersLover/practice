@@ -1,6 +1,6 @@
 package ru.ssau.tk._KEPA_._practice_.functions;
 
-public interface TabulatedFunction extends MathFunction , Iterable<Point>{
+public interface TabulatedFunction extends MathFunction, Iterable<Point> {
 
     int getCount();
 

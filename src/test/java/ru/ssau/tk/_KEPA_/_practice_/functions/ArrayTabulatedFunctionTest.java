@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 import static org.testng.Assert.*;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -22,8 +23,23 @@ public class ArrayTabulatedFunctionTest {
     private ArrayTabulatedFunction getDefinedThroughMathFunction() {
         return new ArrayTabulatedFunction(sqrFunction, 0, 10, 101);
     }
+
+    @Test
+    public void testArrayTabulatedFunction() {
+        double[] xValues = {0.4};
+        double[] yValues = {-2};
+        double[] xValues1 = new double[]{};
+        double[] yValues1 = new double[]{};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues1, yValues1));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(sqrFunction, 55, 15, 25));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(sqrFunction, -5, 5, 1));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(sqrFunction, 4, 80, -99));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(sqrFunction, 999, 9, 999));
+    }
+
+    @Test
     public void testIterator() {
-       
         Iterator<Point> iterator = getDefinedThroughArrays().iterator();
         int i = 0;
         while (iterator.hasNext()) {
@@ -31,13 +47,16 @@ public class ArrayTabulatedFunctionTest {
             assertEquals(point.x, getDefinedThroughArrays().getX(i), 0.0001);
             assertEquals(point.y, getDefinedThroughArrays().getY(i++), 0.0001);
         }
+        System.out.println(i);
         i = 0;
         for (Point point : getDefinedThroughArrays()) {
             assertEquals(point.x, getDefinedThroughArrays().getX(i), 0.0001);
             assertEquals(point.y, getDefinedThroughArrays().getY(i++), 0.0001);
         }
+        System.out.println(i);
         assertThrows(NoSuchElementException.class, iterator::next);
     }
+
     @Test
     public void testApply() {
         assertEquals(getDefinedThroughArrays().apply(-1), -5, DELTA);
@@ -46,7 +65,6 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().apply(30), 498, DELTA);
         assertEquals(getDefinedThroughArrays().apply(1.5), 2.5, DELTA);
         assertEquals(getDefinedThroughMathFunction().apply(1.5), 2.25, DELTA);
-
 
     }
 
@@ -168,8 +186,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().floorIndexOfX(3.122), 31, DELTA);
         assertNotEquals(getDefinedThroughMathFunction().floorIndexOfX(3), 31, DELTA);
 
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().floorIndexOfX(-1));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughMathFunction().floorIndexOfX(-1));
+        assertThrows(IllegalArgumentException.class, () -> getDefinedThroughArrays().floorIndexOfX(-1));
+        assertThrows(IllegalArgumentException.class, () -> getDefinedThroughMathFunction().floorIndexOfX(-1));
 
     }
 
