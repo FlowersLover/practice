@@ -47,13 +47,13 @@ public class ArrayTabulatedFunctionTest {
             assertEquals(point.x, getDefinedThroughArrays().getX(i), 0.0001);
             assertEquals(point.y, getDefinedThroughArrays().getY(i++), 0.0001);
         }
-        System.out.println(i);
+        assertEquals(i,valuesX.length,DELTA);
         i = 0;
         for (Point point : getDefinedThroughArrays()) {
             assertEquals(point.x, getDefinedThroughArrays().getX(i), 0.0001);
             assertEquals(point.y, getDefinedThroughArrays().getY(i++), 0.0001);
         }
-        System.out.println(i);
+        assertEquals(i,valuesX.length,DELTA);
         assertThrows(NoSuchElementException.class, iterator::next);
     }
 

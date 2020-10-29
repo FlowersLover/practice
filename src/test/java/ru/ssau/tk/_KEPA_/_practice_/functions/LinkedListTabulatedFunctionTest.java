@@ -47,13 +47,13 @@ public class LinkedListTabulatedFunctionTest {
             assertEquals(point.x, getThroughArrays().getX(i), 0.0001);
             assertEquals(point.y, getThroughArrays().getY(i++), 0.0001);
         }
-        System.out.println(i);
+        assertEquals(i,valuesX.length,DELTA);
         i = 0;
         for (Point point : getThroughArrays()) {
             assertEquals(point.x, getThroughArrays().getX(i), 0.0001);
             assertEquals(point.y, getThroughArrays().getY(i++), 0.0001);
         }
-        System.out.println(i);
+        assertEquals(i,valuesX.length,DELTA);
         assertThrows(NoSuchElementException.class, iterator::next);
     }
 
