@@ -29,4 +29,15 @@ public class AbstractTabulatedFunctionTest {
         double[] valuesX = new double[]{1, 2, 3, 4, 5};
         AbstractTabulatedFunction.checkSorted(valuesX);
     }
+
+    @Test
+    public void testTestToString() {
+        double[] x = {2.,4. ,6.,8. };
+        double[] y = {4., 16.,36.,64.};
+        TabulatedFunction arrayFunction = new ArrayTabulatedFunction(x, y);
+        assertEquals(arrayFunction.toString(), "ArrayTabulatedFunction size = 4\n[2.0; 4.0]\n[4.0; 16.0]\n[6.0; 36.0]\n[8.0; 64.0]");
+
+        TabulatedFunction listFunction = new LinkedListTabulatedFunction(x, y);
+        assertEquals(listFunction.toString(), "LinkedListTabulatedFunction size = 4\n[2.0; 4.0]\n[4.0; 16.0]\n[6.0; 36.0]\n[8.0; 64.0]");
+    }
 }
