@@ -27,7 +27,7 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
     public TabulatedFunction derive(TabulatedFunction function) {
 
         Point[] points = TabulatedFunctionOperationService.asPoints(function);
-        int length = points.length;
+        int length = points.length-1;
         double[] xValues = new double[length + 1];
         double[] yValues = new double[length + 1];
 
