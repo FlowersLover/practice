@@ -11,11 +11,13 @@ public class TabulatedDifferentialOperatorTest {
     private double[] xValues = new double[]{4., 6., 8., 10.};
     private double[] yValues = new double[]{2., 10., 14., 36.};
 
+
     @Test
     public void testDerive() {
-
-        TabulatedFunction deriveThroughArray = new TabulatedDifferentialOperator().derive(
-                (new ArrayTabulatedFunctionFactory().create(xValues, yValues)));
+        TabulatedFunction deriveThroughArray = new ArrayTabulatedFunction(xValues, yValues);
+        TabulatedDifferentialOperator differentialArrayOperator = new TabulatedDifferentialOperator(new ArrayTabulatedFunctionFactory());
+        deriveThroughArray = differentialArrayOperator.derive(deriveThroughArray);
+        assertTrue(deriveThroughArray instanceof ArrayTabulatedFunction);
         assertEquals(deriveThroughArray.getX(0), 4., DELTA);
         assertEquals(deriveThroughArray.getX(1), 6., DELTA);
         assertEquals(deriveThroughArray.getX(2), 8., DELTA);
@@ -26,9 +28,10 @@ public class TabulatedDifferentialOperatorTest {
         assertEquals(deriveThroughArray.getY(2), 11., DELTA);
         assertEquals(deriveThroughArray.getY(3), 11., DELTA);
 
-
-        TabulatedFunction deriveThroughLinkedList = new TabulatedDifferentialOperator().derive(
-                (new LinkedListTabulatedFunctionFactory().create(xValues, yValues)));
+        TabulatedFunction deriveThroughLinkedList = new LinkedListTabulatedFunction(xValues, yValues);
+        TabulatedDifferentialOperator differentialListOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
+        deriveThroughLinkedList = differentialListOperator.derive(deriveThroughLinkedList);
+        assertTrue(deriveThroughLinkedList instanceof LinkedListTabulatedFunction);
         assertEquals(deriveThroughLinkedList.getX(0), 4., DELTA);
         assertEquals(deriveThroughLinkedList.getX(1), 6., DELTA);
         assertEquals(deriveThroughLinkedList.getX(2), 8., DELTA);

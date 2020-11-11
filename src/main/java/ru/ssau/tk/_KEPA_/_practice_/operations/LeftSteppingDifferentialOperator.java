@@ -4,7 +4,7 @@ import ru.ssau.tk._KEPA_._practice_.functions.MathFunction;
 
 public class LeftSteppingDifferentialOperator extends SteppingDifferentialOperator {
 
-    LeftSteppingDifferentialOperator(double step) {
+    public LeftSteppingDifferentialOperator(double step) {
         super(step);
     }
 
