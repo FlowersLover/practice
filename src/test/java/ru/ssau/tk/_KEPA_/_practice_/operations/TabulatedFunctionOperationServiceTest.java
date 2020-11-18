@@ -15,10 +15,10 @@ public class TabulatedFunctionOperationServiceTest {
     private final double[] valuesYForList = new double[]{10, 20, 30, 40, 50, 60};
     private final double DELTA = 0.00001;
 
-    double[] yValues1 = new double[]{2., 8., 32., 160.};
-    double[] xValues1 = new double[]{2., 4., 6., 8.};
-    double[] yValues2 = new double[]{20., 40., 60., 80.};
-    double[] xValues2 = new double[]{2., 4., 6., 8.};
+    private final double[] yValues1 = new double[]{2., 8., 32., 160.};
+    private final double[] xValues1 = new double[]{2., 4., 6., 8.};
+    private final double[] yValues2 = new double[]{20., 40., 60., 80.};
+    private final double[] xValues2 = new double[]{2., 4., 6., 8.};
 
     TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
     TabulatedFunctionOperationService operationServiceThroughArray = new TabulatedFunctionOperationService();
@@ -26,30 +26,29 @@ public class TabulatedFunctionOperationServiceTest {
     TabulatedFunction a = new ArrayTabulatedFunctionFactory().create(xValues1, yValues1);
     TabulatedFunction b = linkedListFactory.create(xValues2, yValues2);
 
-    ArrayTabulatedFunction getTestArray() {
+    public ArrayTabulatedFunction getTestArray() {
         return new ArrayTabulatedFunction(valuesX, valuesY);
     }
 
-    LinkedListTabulatedFunction getTestList() {
+    public LinkedListTabulatedFunction getTestList() {
         return new LinkedListTabulatedFunction(valuesX, valuesYForList);
     }
 
     @Test
     public void testAsPoints() {
         TabulatedFunction array = getTestArray();
-        Point[] Points = TabulatedFunctionOperationService.asPoints(array);
+        Point[] points = TabulatedFunctionOperationService.asPoints(array);
         TabulatedFunction list = getTestList();
-        Points = TabulatedFunctionOperationService.asPoints(array);
         int i = 0;
-        for (Point point : Points) {
+        for (Point point : points) {
             assertEquals(point.x, array.getX(i), DELTA);
             assertEquals(point.y, array.getY(i++), DELTA);
         }
         assertEquals(array.getCount(), i);
 
-        Points = TabulatedFunctionOperationService.asPoints(list);
+        points = TabulatedFunctionOperationService.asPoints(list);
         i = 0;
-        for (Point point : Points) {
+        for (Point point : points) {
             assertEquals(point.x, list.getX(i), DELTA);
             assertEquals(point.y, list.getY(i++), DELTA);
         }
@@ -136,7 +135,7 @@ public class TabulatedFunctionOperationServiceTest {
     @Test
     public void exceptionsTest() {
         assertThrows(InconsistentFunctionsException.class, () -> {
-            TabulatedFunction c = linkedListFactory.create(new double[]{2., 8., 16.,160}, new double[]{1., 2., 3.,4.});
+            TabulatedFunction c = linkedListFactory.create(new double[]{2., 8., 16., 160}, new double[]{1., 2., 3., 4.});
             operationServiceThroughLinkedList.sum(a, c);
         });
         assertThrows(InconsistentFunctionsException.class, () -> {
