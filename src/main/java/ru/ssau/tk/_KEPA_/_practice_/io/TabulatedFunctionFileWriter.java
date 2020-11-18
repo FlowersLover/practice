@@ -6,8 +6,8 @@ import java.io.*;
 
 public class TabulatedFunctionFileWriter {
     public static void main(String[] args) {
-        double[] x = {2.,4.,6.,8.};
-        double[] y = {4.,16.,36.,64.};
+        double[] x = {2., 4., 6., 8.};
+        double[] y = {4., 16., 36., 64.};
         TabulatedFunction listFunction = new LinkedListTabulatedFunction(x, y);
         TabulatedFunction arrayFunction = new ArrayTabulatedFunction(x, y);
         try {
