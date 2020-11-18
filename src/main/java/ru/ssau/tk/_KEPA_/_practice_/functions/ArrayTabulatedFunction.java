@@ -3,12 +3,14 @@ package ru.ssau.tk._KEPA_._practice_.functions;
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
 
+    private static final long serialVersionUID = 470399721588847887L;
     private final double[] xValues;
     private final double[] yValues;
 

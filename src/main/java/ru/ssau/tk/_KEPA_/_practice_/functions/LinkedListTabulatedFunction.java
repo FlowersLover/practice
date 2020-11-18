@@ -2,10 +2,12 @@ package ru.ssau.tk._KEPA_._practice_.functions;
 
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
+    private static final long serialVersionUID = -1460541411271667486L;
     private Node head;
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
