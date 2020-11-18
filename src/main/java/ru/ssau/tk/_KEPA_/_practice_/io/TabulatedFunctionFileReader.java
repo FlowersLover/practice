@@ -7,9 +7,9 @@ import ru.ssau.tk._KEPA_._practice_.functions.factory.*;
 
 public class TabulatedFunctionFileReader {
     public static void main(String[] args) {
-        File myFile = new File("input/function.txt");
-        try (BufferedReader inArray = new BufferedReader(new FileReader(myFile));
-             BufferedReader inList = new BufferedReader(new FileReader(myFile))) {
+        File file = new File("input/function.txt");
+        try (BufferedReader inArray = new BufferedReader(new FileReader(file));
+             BufferedReader inList = new BufferedReader(new FileReader(file))) {
             TabulatedFunction arrayFunction = FunctionsIO.readTabulatedFunction(inArray, new ArrayTabulatedFunctionFactory());
             System.out.println(arrayFunction.toString());
 

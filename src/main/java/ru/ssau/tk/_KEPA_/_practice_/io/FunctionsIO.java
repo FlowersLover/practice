@@ -48,4 +48,15 @@ public final class FunctionsIO {
         }
         return factory.create(xValues, yValues);
     }
+    public static TabulatedFunction readTabulatedFunction(BufferedInputStream inputStream, TabulatedFunctionFactory factory) throws IOException {
+        DataInputStream inputS = new DataInputStream(inputStream);
+        int count = inputS.readInt();
+        double[] xValues = new double[count];
+        double[] yValues = new double[count];
+        for (int i = 0; i < count; i++) {
+            xValues[i] = inputS.readDouble();
+            yValues[i] = inputS.readDouble();
+        }
+        return factory.create(xValues, yValues);
+    }
 }
