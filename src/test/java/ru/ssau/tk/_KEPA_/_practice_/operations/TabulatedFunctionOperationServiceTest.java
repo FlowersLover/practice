@@ -23,8 +23,8 @@ public class TabulatedFunctionOperationServiceTest {
     TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
     TabulatedFunctionOperationService operationServiceThroughArray = new TabulatedFunctionOperationService();
     TabulatedFunctionOperationService operationServiceThroughLinkedList = new TabulatedFunctionOperationService(linkedListFactory);
-    TabulatedFunction a = new ArrayTabulatedFunctionFactory().create(xValues1, yValues1);
-    TabulatedFunction b = linkedListFactory.create(xValues2, yValues2);
+    private TabulatedFunction a = new ArrayTabulatedFunctionFactory().create(xValues1, yValues1);
+    private TabulatedFunction b = linkedListFactory.create(xValues2, yValues2);
 
     public ArrayTabulatedFunction getTestArray() {
         return new ArrayTabulatedFunction(valuesX, valuesY);

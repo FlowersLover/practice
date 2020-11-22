@@ -2,8 +2,11 @@ package ru.ssau.tk._KEPA_._practice_.functions;
 
 import ru.ssau.tk._KEPA_._practice_.exceptions.*;
 
+import java.io.Serializable;
 
-public abstract class AbstractTabulatedFunction implements TabulatedFunction {
+
+public abstract class AbstractTabulatedFunction implements TabulatedFunction, Serializable {
+    private static final long serialVersionUID = 3498845883976804775L;
     protected int count;
 
     protected static void checkLengthIsTheSame(double[] xValues, double[] yValues) {

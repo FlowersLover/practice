@@ -48,6 +48,7 @@ public final class FunctionsIO {
         }
         return factory.create(xValues, yValues);
     }
+
     public static TabulatedFunction readTabulatedFunction(BufferedInputStream inputStream, TabulatedFunctionFactory factory) throws IOException {
         DataInputStream inputS = new DataInputStream(inputStream);
         int count = inputS.readInt();
@@ -59,11 +60,13 @@ public final class FunctionsIO {
         }
         return factory.create(xValues, yValues);
     }
+
     public static void serialize(BufferedOutputStream stream, TabulatedFunction function) throws IOException {
         ObjectOutputStream out = new ObjectOutputStream(stream);
         out.writeObject(function);
         out.flush();
     }
+
     public static TabulatedFunction deserialize(BufferedInputStream stream) throws IOException, ClassNotFoundException {
         return (TabulatedFunction) new ObjectInputStream(stream).readObject();
     }
