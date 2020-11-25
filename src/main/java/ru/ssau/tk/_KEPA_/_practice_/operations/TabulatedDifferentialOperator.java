@@ -1,6 +1,7 @@
 package ru.ssau.tk._KEPA_._practice_.operations;
 
 import ru.ssau.tk._KEPA_._practice_.functions.*;
+import ru.ssau.tk._KEPA_._practice_.concurrent.SynchronizedTabulatedFunction;
 import ru.ssau.tk._KEPA_._practice_.functions.factory.*;
 import ru.ssau.tk._KEPA_._practice_.functions.TabulatedFunction;
 
@@ -42,4 +43,14 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
 
         return factory.create(xValues, yValues);
     }
+    public TabulatedFunction deriveSynchronously(TabulatedFunction function) {
+        Object sync = new Object();
+
+        if (function instanceof SynchronizedTabulatedFunction) {
+            return ((SynchronizedTabulatedFunction) function).doSynchronously(this::derive);
+        }
+        SynchronizedTabulatedFunction syncFunc = new SynchronizedTabulatedFunction(function, sync);
+        return syncFunc.doSynchronously(this::derive);
+    }
+
 }
