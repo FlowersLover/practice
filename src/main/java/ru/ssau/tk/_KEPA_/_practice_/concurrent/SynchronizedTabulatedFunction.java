@@ -2,8 +2,10 @@ package ru.ssau.tk._KEPA_._practice_.concurrent;
 
 import ru.ssau.tk._KEPA_._practice_.functions.TabulatedFunction;
 import ru.ssau.tk._KEPA_._practice_.functions.*;
+import ru.ssau.tk._KEPA_._practice_.operations.TabulatedFunctionOperationService;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SynchronizedTabulatedFunction implements TabulatedFunction {
@@ -75,7 +77,23 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
     @Override
     public Iterator<Point> iterator() {
         synchronized (sync) {
-            return function.iterator();
+            Point[] points = TabulatedFunctionOperationService.asPoints(function);
+            return new Iterator<>() {
+                int i = 0;
+
+                @Override
+                public boolean hasNext() {
+                    return i < points.length;
+                }
+
+                @Override
+                public Point next() {
+                    if (!hasNext()) {
+                        throw new NoSuchElementException();
+                    }
+                    return points[i++];
+                }
+            };
         }
     }
 

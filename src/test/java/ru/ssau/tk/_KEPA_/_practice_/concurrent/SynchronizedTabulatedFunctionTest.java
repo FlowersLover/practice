@@ -3,11 +3,14 @@ package ru.ssau.tk._KEPA_._practice_.concurrent;
 import org.testng.annotations.Test;
 import ru.ssau.tk._KEPA_._practice_.functions.ArrayTabulatedFunction;
 import ru.ssau.tk._KEPA_._practice_.functions.LinkedListTabulatedFunction;
+import ru.ssau.tk._KEPA_._practice_.functions.Point;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.testng.Assert.*;
 
 public class SynchronizedTabulatedFunctionTest {
-
     private final double[] xValues = new double[]{1, 2, 3, 4, 5, 6};
     private final double[] yValues = new double[]{1, 4, 9, 16, 25, 36};
     private final Object sync = new Object();
@@ -76,7 +79,27 @@ public class SynchronizedTabulatedFunctionTest {
         synchronizedArr.setY(4, 50);
         assertEquals(synchronizedArr.getY(4), 50, DELTA);
     }
+    @Test
+    public void testIteratorWhile() {
+        SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+        Iterator<Point> testIterator = synchronizedTabulatedFunction.iterator();
+        int i = 0;
+        while (testIterator.hasNext()) {
+            Point myPoint = testIterator.next();
+            assertEquals(synchronizedTabulatedFunction.getX(i), myPoint.x);
+            assertEquals(synchronizedTabulatedFunction.getY(i++), myPoint.y);
+        }
+        assertEquals(synchronizedTabulatedFunction.getCount(), i);
 
+        assertThrows(NoSuchElementException.class, testIterator::next);
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
+        i = 0;
+        for (Point point : synchronizedArr) {
+            assertEquals(point.x, synchronizedArr.getX(i), DELTA);
+            assertEquals(point.y, synchronizedArr.getY(i++), DELTA);
+        }
+        assertEquals(synchronizedArr.getCount(), i);
+    }
     @Test
     public void testIndexOfX() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
