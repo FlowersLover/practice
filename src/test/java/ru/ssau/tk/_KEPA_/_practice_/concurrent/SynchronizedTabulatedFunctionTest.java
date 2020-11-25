@@ -25,6 +25,14 @@ public class SynchronizedTabulatedFunctionTest {
     }
 
     @Test
+    public void testDoSynchronously() {
+        SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+        assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 5);
+        assertEquals((double) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::leftBound), 1.0);
+        assertEquals((double) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::rightBound), 6.0);
+    }
+
+    @Test
     public void testGetCount() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
         SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
@@ -79,6 +87,7 @@ public class SynchronizedTabulatedFunctionTest {
         synchronizedArr.setY(4, 50);
         assertEquals(synchronizedArr.getY(4), 50, DELTA);
     }
+
     @Test
     public void testIteratorWhile() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
@@ -100,6 +109,7 @@ public class SynchronizedTabulatedFunctionTest {
         }
         assertEquals(synchronizedArr.getCount(), i);
     }
+
     @Test
     public void testIndexOfX() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
