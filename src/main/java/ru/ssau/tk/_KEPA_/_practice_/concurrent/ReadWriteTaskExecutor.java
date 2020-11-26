@@ -13,9 +13,9 @@ public class ReadWriteTaskExecutor {
         }
         for (Thread i : myThread) {
             i.start();
-            Thread.sleep(2_000);
-            System.out.println(listFunction.toString());
         }
+        Thread.sleep(2000);
+        System.out.println(listFunction.toString());
     }
 
 }

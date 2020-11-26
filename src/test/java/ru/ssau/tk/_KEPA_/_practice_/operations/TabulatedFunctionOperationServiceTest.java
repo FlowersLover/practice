@@ -20,11 +20,10 @@ public class TabulatedFunctionOperationServiceTest {
     private final double[] yValues2 = new double[]{20., 40., 60., 80.};
     private final double[] xValues2 = new double[]{2., 4., 6., 8.};
 
-    TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
-    TabulatedFunctionOperationService operationServiceThroughArray = new TabulatedFunctionOperationService();
-    TabulatedFunctionOperationService operationServiceThroughLinkedList = new TabulatedFunctionOperationService(linkedListFactory);
+    private final TabulatedFunctionOperationService operationServiceThroughArray = new TabulatedFunctionOperationService();
+    private final TabulatedFunctionOperationService operationServiceThroughLinkedList = new TabulatedFunctionOperationService(new LinkedListTabulatedFunctionFactory());
     private TabulatedFunction a = new ArrayTabulatedFunctionFactory().create(xValues1, yValues1);
-    private TabulatedFunction b = linkedListFactory.create(xValues2, yValues2);
+    private TabulatedFunction b =  new LinkedListTabulatedFunctionFactory().create(xValues2, yValues2);
 
     public ArrayTabulatedFunction getTestArray() {
         return new ArrayTabulatedFunction(valuesX, valuesY);
@@ -135,11 +134,11 @@ public class TabulatedFunctionOperationServiceTest {
     @Test
     public void exceptionsTest() {
         assertThrows(InconsistentFunctionsException.class, () -> {
-            TabulatedFunction c = linkedListFactory.create(new double[]{2., 8., 16., 160}, new double[]{1., 2., 3., 4.});
+            TabulatedFunction c = new LinkedListTabulatedFunctionFactory().create(new double[]{2., 8., 16., 160}, new double[]{1., 2., 3., 4.});
             operationServiceThroughLinkedList.sum(a, c);
         });
         assertThrows(InconsistentFunctionsException.class, () -> {
-            TabulatedFunction c = linkedListFactory.create(new double[]{2., 8., 16.}, new double[]{1., 2., 3.});
+            TabulatedFunction c = new LinkedListTabulatedFunctionFactory().create(new double[]{2., 8., 16.}, new double[]{1., 2., 3.});
             operationServiceThroughArray.multiply(a, c);
         });
     }

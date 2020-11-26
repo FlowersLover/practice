@@ -12,14 +12,12 @@ public class AddingMultiplyingTaskExecutor {
 
         Thread thread1 = new Thread(multiplyingTask);
         thread1.start();
-        Thread.sleep(2_000);
         Thread thread2 = new Thread(multiplyingTask);
         thread2.start();
-        Thread.sleep(2_000);
         Thread thread3 = new Thread(addingTask);
         thread3.start();
-        Thread.sleep(2_000);
 
+        Thread.sleep(2000);
         System.out.println(function.toString());
     }
 }

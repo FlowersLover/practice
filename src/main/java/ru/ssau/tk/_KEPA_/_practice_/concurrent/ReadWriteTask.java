@@ -5,7 +5,7 @@ import ru.ssau.tk._KEPA_._practice_.functions.*;
 public class ReadWriteTask implements Runnable {
     private final TabulatedFunction function;
 
-    ReadWriteTask(TabulatedFunction function) {
+    public ReadWriteTask(TabulatedFunction function) {
         this.function = function;
     }
 

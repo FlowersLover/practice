@@ -27,7 +27,7 @@ public class SynchronizedTabulatedFunctionTest {
     @Test
     public void testDoSynchronously() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
-        assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 5);
+        assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 6);
         assertEquals((double) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::leftBound), 1.0);
         assertEquals((double) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::rightBound), 6.0);
     }
