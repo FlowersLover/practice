@@ -1,52 +1,59 @@
 package ru.ssau.tk._KEPA_._practice_.ui;
 
+import ru.ssau.tk._KEPA_._practice_.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk._KEPA_._practice_.functions.TabulatedFunction;
 import ru.ssau.tk._KEPA_._practice_.functions.factory.*;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
+import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CreateTabulatedFunctionThroughArray extends JDialog {
-
-    private List<String> xValues = new ArrayList<>();
-    private List<String> yValues = new ArrayList<>();
-    private AbstractTableModel tableModel = new XYTableModel(xValues, yValues);
-    private JTable table = new JTable(tableModel);
-    private JLabel label = new JLabel("Введите количество точек:");
-    private JTextField countField = new JTextField();
-    private JButton inputButton = new JButton("Ввести");
-    private JButton createButton = new JButton("Создать");
+    private final List<Double> xValues = new ArrayList<>();
+    private final List<Double> yValues = new ArrayList<>();
+    private final AbstractTableModel tableModel = new XYTableModel(xValues, yValues);
+    private final JTable table = new JTable(tableModel);
+    private final JLabel label = new JLabel("Введите количество точек:");
+    private final JTextField countField = new JTextField("2");
+    private final JButton inputButton = new JButton("Ввести");
+    private final JButton createButton = new JButton("Создать");
+    private TabulatedFunctionFactory factory;
     private TabulatedFunction function;
 
-
-    public CreateTabulatedFunctionThroughArray() {
-        super();
-        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        this.setBounds(300, 300, 500, 500);
-
-        getContentPane().add(countField);
-        getContentPane().add(inputButton);
-        getContentPane().add(createButton);
-
-
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        addButtonListeners();
-        compose();
-        setLocationRelativeTo(null);
-        setVisible(true);
-
+    public static void main(TabulatedFunctionFactory factory, Consumer<? super TabulatedFunction> callback) {
+        CreateTabulatedFunctionThroughArray app = new CreateTabulatedFunctionThroughArray(factory, callback);
+        app.setVisible(true);
     }
 
-    private void addButtonListeners() {
+    public CreateTabulatedFunctionThroughArray(TabulatedFunctionFactory factory, Consumer<? super TabulatedFunction> callback) {
+        setModal(true);
+        setLocationRelativeTo(null);
+        getContentPane().setLayout(new FlowLayout());
+        this.setBounds(300, 300, 500, 500);
+        this.factory = factory;
+        addButtonListeners(callback);
+        compose();
+        setLocationRelativeTo(null);
+    }
+
+    public void addButtonListeners(Consumer<? super TabulatedFunction> callback) {
         inputButton.addActionListener(event -> {
             try {
+                createButton.setEnabled(true);
                 int count = Integer.parseInt(countField.getText());
+                clearTable(tableModel.getRowCount());
                 for (int i = 0; i < count; i++) {
-                    xValues.add(i,"");
-                    yValues.add(i,"");
+                    xValues.add(0.);
+                    yValues.add(0.);
                     tableModel.fireTableDataChanged();
+                }
+                if (tableModel.getRowCount() > 1) {
+                    createButton.setEnabled(true);
                 }
             } catch (Exception e) {
                 new ErrorWindow(this, e);
@@ -54,34 +61,27 @@ public class CreateTabulatedFunctionThroughArray extends JDialog {
         });
         createButton.addActionListener(event -> {
             try {
-                table .clearSelection();
-                table .getCellEditor().stopCellEditing();
                 double[] x = new double[xValues.size()];
                 double[] y = new double[xValues.size()];
-
-                for (int i = 0; i < xValues.size(); i++) {
-                    String numx = xValues.get(i);
-                    String numy = yValues.get(i);
-                    x[i] = Double.parseDouble(numx);
-                    y[i] = Double.parseDouble(numy);
+                x[0] = xValues.get(0);
+                y[0] = yValues.get(0);
+                for (int i = 1; i < xValues.size(); i++) {
+                    if (xValues.get(i - 1) > xValues.get(i)) {
+                        throw new ArrayIsNotSortedException();
+                    }
+                    x[i] = xValues.get(i);
+                    y[i] = yValues.get(i);
                 }
-
-
                 function = new ArrayTabulatedFunctionFactory().create(x, y);
-
-                System.out.println(function.toString());
-
-                setVisible(false);
+                callback.accept(function);
+                this.dispose();
             } catch (Exception e) {
                 new ErrorWindow(this, e);
             }
         });
-
-
     }
 
-
-    public void compose() {
+    void compose() {
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setAutoCreateGaps(true);
@@ -105,8 +105,18 @@ public class CreateTabulatedFunctionThroughArray extends JDialog {
         );
     }
 
-    public static void main(String[] args) {
-        new CreateTabulatedFunctionThroughArray();
+    public void clearTable(int n) {
+        for (int i = 0; i < n; i++) {
+            xValues.remove(n - i - 1);
+            yValues.remove(n - i - 1);
+            tableModel.fireTableDataChanged();
+        }
     }
 
+
+    public static void main(String[] args) {
+    }
 }
+
+
+

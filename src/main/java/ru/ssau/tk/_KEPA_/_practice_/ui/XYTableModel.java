@@ -1,19 +1,22 @@
 package ru.ssau.tk._KEPA_._practice_.ui;
 
 
-import javax.swing.event.TableModelEvent;
+import ru.ssau.tk._KEPA_._practice_.functions.TabulatedFunction;
+
+
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class XYTableModel extends AbstractTableModel {
-    private static final int X_COLUMN = 0;
-    private static final int Y_COLUMN = 1;
-    private List<String> xValues;
-    private List<String> yValues;
-    private boolean flag = true;
+    private static final int INDEX_COLUMN_NUMBER = 0;
+    private static final int X_COLUMN_NUMBER = 1;
+    private static final int Y_COLUMN_NUMBER = 2;
+    private static final long serialVersionUID = -6745685786311274493L;
+    private final List<Double> xValues;
+    private final List<Double> yValues;
 
-    public XYTableModel(List<String> xValues, List<String> yValues) {
+    public XYTableModel(List<Double> xValues, List<Double> yValues) {
         this.xValues = xValues;
         this.yValues = yValues;
     }
@@ -25,59 +28,56 @@ public class XYTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
-            case X_COLUMN:
+            case INDEX_COLUMN_NUMBER:
+                return rowIndex;
+            case X_COLUMN_NUMBER:
                 return xValues.get(rowIndex);
-
-            case Y_COLUMN:
+            case Y_COLUMN_NUMBER:
                 return yValues.get(rowIndex);
-
         }
         throw new UnsupportedOperationException();
     }
 
+
     @Override
-    public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case X_COLUMN -> xValues.set(rowIndex, String.valueOf(value));
-            case Y_COLUMN -> yValues.set(rowIndex, String.valueOf(value));
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) throws NumberFormatException {
+        if (columnIndex == X_COLUMN_NUMBER) {
+            try {
+                xValues.set(rowIndex, Double.valueOf(aValue.toString()));
+            } catch (Exception e) {
+                xValues.set(rowIndex, 0.0);
+            }
+        } else if (columnIndex == Y_COLUMN_NUMBER) {
+            try {
+                yValues.set(rowIndex, Double.valueOf(aValue.toString()));
+            } catch (Exception e) {
+                yValues.set(rowIndex, 0.0);
+            }
         }
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case X_COLUMN:
-            case Y_COLUMN:
-                return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void fireTableDataChanged() {
-        fireTableChanged(new TableModelEvent(this));
-        flag = false;
+        return switch (columnIndex) {
+            case X_COLUMN_NUMBER, Y_COLUMN_NUMBER -> true;
+            default -> false;
+        };
     }
 
     @Override
     public String getColumnName(int column) {
         return switch (column) {
-            case X_COLUMN -> "X";
-            case Y_COLUMN -> "Y";
+            case INDEX_COLUMN_NUMBER -> "Индекс";
+            case X_COLUMN_NUMBER -> "X";
+            case Y_COLUMN_NUMBER -> "Y";
             default -> super.getColumnName(column);
         };
     }
-
-    public void removeAll() {
-        xValues = new ArrayList<>();
-        yValues = new ArrayList<>();
-    }
-
 }
 

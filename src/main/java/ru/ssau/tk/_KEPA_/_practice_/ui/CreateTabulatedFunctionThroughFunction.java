@@ -9,10 +9,8 @@ import java.awt.*;
 import java.util.*;
 
 public class CreateTabulatedFunctionThroughFunction extends JDialog {
-
     private final JComboBox<String> functionComboBox = new JComboBox<>();
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
-
 
     private final JLabel fromLabel = new JLabel("От:");
     private final JLabel toLabel = new JLabel("До:");
@@ -119,6 +117,6 @@ public class CreateTabulatedFunctionThroughFunction extends JDialog {
                 .addComponent(buttonCreateFunction)
         );
     }
-}
+  }
 
 
