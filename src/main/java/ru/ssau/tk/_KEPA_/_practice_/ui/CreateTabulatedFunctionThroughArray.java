@@ -25,11 +25,6 @@ public class CreateTabulatedFunctionThroughArray extends JDialog {
     private TabulatedFunctionFactory factory;
     private TabulatedFunction function;
 
-    public static void main(TabulatedFunctionFactory factory, Consumer<? super TabulatedFunction> callback) {
-        CreateTabulatedFunctionThroughArray app = new CreateTabulatedFunctionThroughArray(factory, callback);
-        app.setVisible(true);
-    }
-
     public CreateTabulatedFunctionThroughArray(TabulatedFunctionFactory factory, Consumer<? super TabulatedFunction> callback) {
         setModal(true);
         setLocationRelativeTo(null);
@@ -113,7 +108,10 @@ public class CreateTabulatedFunctionThroughArray extends JDialog {
         }
     }
 
-
+    public static void main(TabulatedFunctionFactory factory, Consumer<? super TabulatedFunction> callback) {
+        CreateTabulatedFunctionThroughArray app = new CreateTabulatedFunctionThroughArray(factory, callback);
+        app.setVisible(true);
+    }
     public static void main(String[] args) {
     }
 }

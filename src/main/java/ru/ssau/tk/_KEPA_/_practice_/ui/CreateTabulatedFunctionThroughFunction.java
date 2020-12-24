@@ -29,7 +29,6 @@ public class CreateTabulatedFunctionThroughFunction extends JDialog {
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setModal(true);
         setSize(500, 150);
-        setTitle("Function");
         fillMap();
 
         getContentPane().add(countLabel);

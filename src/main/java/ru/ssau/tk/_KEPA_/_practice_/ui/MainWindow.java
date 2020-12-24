@@ -7,10 +7,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MainWindow extends JFrame {
-    private final JButton buttonCreateTFunction = new JButton("Создать табулированную функцию");
+    private final JButton buttonCreateTFunction = new JButton("Создать табулированную функцию из массивов");
     private final JButton buttonSettings = new JButton("Настройки");
-    private final JButton inputButtonMath = new JButton("Поэлементные операции");
-    private final JButton buttonDifferentiation = new JButton("Дифференцирование");
+    private final JButton inputButtonMath = new JButton("Создать табулироваанную функцияспомощью другой функции");
     private JButton openButton = new JButton("Открыть функцию");
     private JButton saveButton = new JButton("Сохранить функцию");
     private ArrayList<Double> xValues = new ArrayList<>();
@@ -23,7 +22,7 @@ public class MainWindow extends JFrame {
         super("Основное окно");
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(300, 300, 1000, 500);
+        setBounds(300, 300, 1200, 500);
         getContentPane().add(buttonCreateTFunction);
         getContentPane().add(inputButtonMath);
         getContentPane().add(buttonSettings);
